@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title> 祝我的小🐅新年快乐！ ~ 🎆</title>
+    <link type="text/css" rel="stylesheet" href="./musicplay.css"  />
+    </head>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        
+      }
+
+      body {
+        background-color: #111;
+      }
+
+      .fireworks-canvas, .word-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .word-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+      }
+
+      .word-canvas {
+        will-change: transform;
+      }
+
+      /* .lunbo{
+				width:300px;
+				height:400px;
+				background-image: url(./pics/1.jpg);
+        background-size: auto;
+        background-position-x: center;
+        background-size:100% 100%; 
+        /* z-index: 99; */
+			} */
+    </style>
+  </head>
+
+  <body>
+    <!-- <div class="lunbo">
+			
+		</div>
+		<script type="text/javascript">
+		  var index = 1;
+			function lunbo(){
+				index ++ ;
+				//判断number是否大于3
+				if(index > 3){
+					index = 1;
+				}
+				//获取img对象
+		var img = document.getElementsByClassName("lunbo")[0];
+		img.style.background = "url(./pics/"+index+".jpg)";
+		img.style.backgroundSize="100% 100%";	
+			}
+			//2.定义定时器
+			setInterval(lunbo,3000); -->
+
+		</script>
+
+    <canvas id="fireworks" class="fireworks-canvas"></canvas>
+    <div class="word-container">
+      <canvas id="word" class="word-canvas"></canvas>
+    </div>
+    <div class="div">
+      <center> 
+      <img src="./pics/7.jpg" alt="图片" class="img" style="width: 300px; height: 400px;"><br/>
+      <!-- 这里修改播放器播放音乐 -->
+      <!-- 这里面的autoplay="autoplay"属性为自动播放，不想让自动播放删去即可 -->
+      <audio src="./Green Day - Last Night On Earth.mp3" controls></audio></center>
+      <!-- 歌词显示盒子 -->
+      <div class="bg"></div>
+      <!-- 引入jquery和 本地 jquery-->
+      <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+      <script src="js/jquery-1.9.1.min.js"></script>
+      <script src="js/getLyric.js" type="text/javascript"></script>
+   <script type="text/javascript">
+    $(function() {
+        function parseLyric(text) {
+            //按行分割歌词
+            let lyricArr = text.split('\n');
+            //console.log(lyricArr)//0: "[ti:七里香]" "[ar:周杰伦]"...
+            let result = []; //新建一个数组存放最后结果
+            //遍历分割后的歌词数组，将格式化后的时间节点，歌词填充到result数组
+            for (i = 0; i < lyricArr.length; i++) {
+                let playTimeArr = lyricArr[i].match(/\[\d{2}:\d{2}((\.|\:)\d{2})\]/g); //正则匹配播放时间
+                let lineLyric = "";
+                if (lyricArr[i].split(playTimeArr).length > 0) {
+                    lineLyric = lyricArr[i].split(playTimeArr);
+                }
+
+                if (playTimeArr != null) {
+                    for (let j = 0; j < playTimeArr.length; j++) {
+                        let time = playTimeArr[j].substring(1, playTimeArr[j].indexOf("]")).split(":");
+                        //数组填充
+                        result.push({
+                            time: (parseInt(time[0]) * 60 + parseFloat(time[1])).toFixed(4),
+                            content: String(lineLyric).substr(1)
+                        });
+                    }
+                }
+
+
+            }
+            return result;
+        }
+        
+        // let text = "[00:00.000]作词:Armstrong,Billie Joe\n[00:01.000] 作曲 : Wright III, Frank Edwin / Pritchard, Mike Ryan / Armstrong, Billie Joe\n[00:16.290]I text a postcard, sent to you[00:21.100]Did it go through?\n[00:25.110]Sending all my love to you.\n[00:32.750]You are the moonlight of my life every night\n[00:41.340]Giving all my love to you\n[00:48.790]My beating heart belongs to you\n[00:56.670]I walked for miles til I found you\n[01:04.800]I'm here to honor you\n[01:08.340]If I lose everything in the fire\n[01:13.600]I'm sending all my love to you\n[01:32.780]With every breath that I am worth\n[01:37.250]Here on earth\n[01:40.850]I'm sending all my love to you\n[01:48.530]So if you dare to second guess\n[01:53.220]You can rest\n[01:57.300]Assured that all my love's for you\n[02:04.840]My beating heart belongs to you\n[02:12.760]I walked for miles til I found you\n[02:20.740]I'm here to honor you\n[02:24.360]If I lose everything in the fire\n[02:29.590]I'm sending all my love to you\n[03:04.830]My beating heart belongs to you\n[03:12.730]I walked for miles til I found you\n[03:20.740]I'm here to honor you\n[03:24.210]If I lose everything in the fire\n[03:29.750]Did I ever make it through?\n[03:39.750]";
+        // let url = 'lyrics/Last Night On Earth - Green Day.lrc';
+        // let text = gettxt(url);
+        let text = "[00:00.00]作词:Armstrong,Billie Joe\n[00:02.00]作曲：Wright III, Frank Edwin / Pritchard Mike Ryan\n[00:04.00]Armstrong, Billie Joe\n[00:08.00]演唱：the Green Day\n[00:16.29]I text a postcard, sent to you\n[00:21.10]Did it go through?\n[00:25.11]Sending all my love to you.\n[00:32.75]You are the moonlight of my life every night\n[00:41.34]Giving all my love to you\n[00:48.79]My beating heart belongs to you\n[00:56.67]I walked for miles til I found you\n[01:04.80]I'm here to honor you\n[01:08.34]If I lose everything in the fire\n[01:13.60]I'm sending all my love to you\n[01:32.78]With every breath that I am worth\n[01:37.25]Here on earth\n[01:40.85]I'm sending all my love to you\n[01:48.53]So if you dare to second guess\n[01:53.22]You can rest\n[01:57.30]Assured that all my love's for you\n[02:04.84]My beating heart belongs to you\n[02:12.76]I walked for miles til I found you\n[02:20.74]I'm here to honor you\n[02:24.36]If I lose everything in the fire\n[02:29.59]I'm sending all my love to you\n[03:04.83]My beating heart belongs to you\n[03:12.73]I walked for miles til I found you\n[03:20.74]I'm here to honor you\n[03:24.21]If I lose everything in the fire\n[03:29.75]Did I ever make it through?\n";
+
+        let audio = document.querySelector('audio');
+
+        let result = parseLyric(text); 
+
+        let $ul = $("<ul></ul>");
+        for (let i = 0; i < result.length; i++) {
+            let $li = $("<li></li>").text(result[i].content);
+            $ul.append($li);
+        }
+        $(".bg").append($ul);
+		// 当前行歌词
+        let lineNo = 0; 
+		// 当播放6行后开始滚动歌词
+        let preLine =1; 
+		// 每次滚动的距离
+        let lineHeight = -30; 
+
+        // 滚动播放 歌词高亮  增加类名active
+        function highLight() {
+            let $li = $("li");
+            $li.eq(lineNo).addClass("active").siblings().removeClass("active");
+            if (lineNo > preLine) {
+                $ul.stop(true, true).animate({ top: (lineNo - preLine) * lineHeight });
+            }
+        }
+
+        highLight();
+
+        // 播放的时候不断渲染
+        audio.addEventListener("timeupdate", function() {
+            if (lineNo == result.length) return;
+            if ($("li").eq(0).hasClass("active")) {
+                $("ul").css("top", "0");
+            }
+            lineNo =getLineNo(audio.currentTime);
+            highLight();
+            lineNo++;
+        });
+
+        // 当快进或者倒退的时候，找到最近的后面那个result[i].time
+        function getLineNo(currentTime) {
+            if (currentTime >= parseFloat(result[lineNo].time)) {
+                // 快进
+                for (let i = result.length - 1; i >= lineNo; i--) {
+                    if (currentTime >= parseFloat(result[i].time)) {
+                        return i;
+                    }
+                }
+            } else {
+                // 后退
+                for (let i = 0; i <= lineNo; i++) {
+                    if (currentTime <= parseFloat(result[i].time)) {
+                        return i - 1;
+                    }
+                }
+            }
+        }
+
+        //播放结束自动回到开头
+        audio.addEventListener("ended", function() {
+            lineNo = 0;
+            highLight();
+            audio.play();
+            $("ul").css("top", "0");
+        });
+    });
+    </script>
+</div>
+       
+
+    <script src="./js/constants.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/imageSrc.js"></script>
+    <script src="./js/tinycolor.js"></script>
+    <script src="./js/fireworks.js"></script>
+    <script src="./js/word.js"></script>
+
+    <script>
+      {
+        const dom = document.querySelector('#fireworks')
+        const options = {}
+
+        const fireworks = new Fireworks(dom, options)
+        fireworks.start()
+
+        dom.addEventListener('click', (event) => {
+          fireworks.createFirework(event.offsetX, event.offsetY)
+        })
+      }
+      
+      {
+        const dom = document.querySelector('#word')
+        const image = imageSrc
+        const word = new Word(dom, image)
+        word.start()
+      }
+      
+    </script>
+    
+  </body>
+  
+</html>
